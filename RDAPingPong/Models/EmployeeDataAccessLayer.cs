@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace RDAPingPong.Models
-{
-    public class EmployeeDataAccessLayer
-    {   
+namespace RDAPingPong.Models {
+    public class EmployeeDataAccessLayer {
         RDAPingPongContext db = new RDAPingPongContext();
 
         public IEnumerable<TblEmployee> GetAllEmployees() {
@@ -18,7 +14,7 @@ namespace RDAPingPong.Models
             }
         }
 
-        // ADD new employee record
+        //To Add new employee record   
         public int AddEmployee(TblEmployee employee) {
             try {
                 db.TblEmployee.Add(employee);
@@ -29,28 +25,29 @@ namespace RDAPingPong.Models
             }
         }
 
-        // UPDATE employee record
+        //To Update the records of a particluar employee  
         public int UpdateEmployee(TblEmployee employee) {
             try {
-                db.TblEmployee.Update(employee);
+                db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
-                return 1;
-            } catch {
-                throw;
-            }
-    }
 
-        // GET details of employee x
-        public TblEmployee GetEmployeeData(int id) {
-            try {
-                TblEmployee emp = db.TblEmployee.Find(id);
-                return emp;
+                return 1;
             } catch {
                 throw;
             }
         }
 
-        // DELETE the record of emp x
+        //Get the details of a particular employee  
+        public TblEmployee GetEmployeeData(int id) {
+            try {
+                TblEmployee employee = db.TblEmployee.Find(id);
+                return employee;
+            } catch {
+                throw;
+            }
+        }
+
+        //To Delete the record of a particular employee  
         public int DeleteEmployee(int id) {
             try {
                 TblEmployee emp = db.TblEmployee.Find(id);
@@ -62,12 +59,13 @@ namespace RDAPingPong.Models
             }
         }
 
-        // GET list of cities
+        //To Get the list of Cities  
         public List<TblCities> GetCities() {
-
             List<TblCities> lstCity = new List<TblCities>();
             lstCity = (from CityList in db.TblCities select CityList).ToList();
+
             return lstCity;
         }
+
     }
 }

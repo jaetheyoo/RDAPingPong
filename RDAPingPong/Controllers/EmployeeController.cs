@@ -1,26 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using RDAPingPong.Models;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace RDAPingPong.Controllers
-{
-    [Route("api/[controller]")]
-    public class EmployeeController : Controller
-    {
+namespace RDAPingPong.Controllers {
+    public class EmployeeController : Controller {
         EmployeeDataAccessLayer objemployee = new EmployeeDataAccessLayer();
-
-        // GET: api/<controller>
         [HttpGet]
         [Route("api/Employee/Index")]
         public IEnumerable<TblEmployee> Index() {
             return objemployee.GetAllEmployees();
         }
-
+        
         [HttpPost]
         [Route("api/Employee/Create")]
         public int Create(TblEmployee employee) {
